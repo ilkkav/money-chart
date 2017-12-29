@@ -7,7 +7,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static(path.resolve(__dirname, '/build')));
+app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 app.get('/api', function (req, res) {
   res.set('Content-Type', 'application/json');
@@ -24,7 +24,7 @@ app.get('/api', function (req, res) {
 });
 
 app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, '/build', 'index.html'));
+  response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
 
 app.listen(PORT, function () {
