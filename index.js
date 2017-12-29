@@ -5,7 +5,7 @@ const parseFile = require('./data/parseCsv').parseFile;
 
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.static(path.resolve(__dirname, '../build')));
 
