@@ -1,7 +1,7 @@
 import 'should';
 import moment from 'moment';
-import { parseFile } from '../../server/data/parseCsv';
-import { getRecurringPaymentsChartData, getTotalsBySource, getMonthlyTotalsChartData } from '../parser/parseData';
+import { parseFile } from '../../../parseCsv';
+import { getRecurringPaymentsChartData, getTotalsBySource, getMonthlyTotalsChartData } from './parseData';
 const path = require('path');
 
 describe('test stuff', () => {
@@ -9,7 +9,7 @@ describe('test stuff', () => {
   let testData;
 
   beforeAll(() => {
-    let filePath = path.join(__dirname, '../../server/data/exampleData.csv');
+    let filePath = path.join(__dirname, '../../../data/exampleData.csv');
 
     return parseFile(filePath)
     .then((result) => {
@@ -17,16 +17,14 @@ describe('test stuff', () => {
     });
   });
 
-  it.only('parse recurring payments', () => {
+  it('parse recurring payments', () => {
     const result = getRecurringPaymentsChartData(testData, 2);
-    console.log(result);
     result.labels.length.should.equal(12);
     result.datasets.length.should.equal(2);
     result.datasets[0].label.should.equal('Spotify');
     result.datasets[0].data.should.deepEqual([ -9, -9, 0, 0, 0, 0, 0, 0, 0, 0, -9, 0 ]);
-    result.datasets[1].label.should.equal('SUOMEN UNICEF RY');
-    result.datasets[1].data.should.deepEqual([ -5, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, -5 ]);
-
+    result.datasets[1].label.should.equal('The Charity Joint');
+    result.datasets[1].data.should.deepEqual([ -5, -5, 0, 0, 0, -5, -5, 0, 0, 0, 0, -5 ]);
   });
 
   it('get totals by source', () => {

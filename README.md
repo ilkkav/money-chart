@@ -12,7 +12,7 @@ Open http://localhost:5000 in your browser.
 
 ## Run tests
 
-`npm test`
+`cd client && npm test`
 
 ## Live example
 

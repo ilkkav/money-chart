@@ -7,7 +7,8 @@
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-chartjs-2": "^2.6.4",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "should": "^13.2.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

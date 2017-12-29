@@ -7,7 +7,6 @@ const getColumnNames = (headerRow, delimiter) => headerRow.split(delimiter);
 
 const parseRows = (rawData) => {
   const columnNames = getColumnNames(rawData[0], '\t');
-  console.log(columnNames);
   return rawData.slice(1).map(row => parseRow(row, columnNames));
 };
 
@@ -25,7 +24,7 @@ const parseRow = (row, columnNames) => {
   return rawData;
 };
 
-const parseFile = (filePath) =>  
+const parseFile = (filePath) =>
   readFile(filePath, 'utf8')
   .then(content => {
     //drop the header line that only contains account number
