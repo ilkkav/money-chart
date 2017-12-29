@@ -16,4 +16,4 @@ Open http://localhost:5000 in your browser.
 
 ## Live example
 
-https://agile-refuge-20449.herokuapp.com/api
+https://agile-refuge-20449.herokuapp.com
