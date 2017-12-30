@@ -36,7 +36,7 @@ html, body {
 
 .chart-container {
   flex-direction: column;
-  padding: 20px;
+  margin-bottom: 80px;
 }
 
 .chart-label {
