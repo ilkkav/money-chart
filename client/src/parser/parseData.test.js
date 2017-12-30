@@ -1,7 +1,12 @@
 import 'should';
 import moment from 'moment';
 import { parseFile } from '../../../parseCsv';
-import { getRecurringPaymentsChartData, getTotalsBySource, getMonthlyTotalsChartData } from './parseData';
+import {
+  getRecurringPaymentsChartData,
+  getTotalsBySource,
+  getMonthlyTotalsChartData,
+  getBiggestReceivers,
+} from './parseData';
 const path = require('path');
 
 describe('test stuff', () => {
@@ -25,6 +30,19 @@ describe('test stuff', () => {
     result.datasets[0].data.should.deepEqual([ -9, -9, 0, 0, 0, 0, 0, 0, 0, 0, -9, 0 ]);
     result.datasets[1].label.should.equal('The Charity Joint');
     result.datasets[1].data.should.deepEqual([ -5, -5, 0, 0, 0, -5, -5, 0, 0, 0, 0, -5 ]);
+  });
+
+  it('get biggest receivers', () => {
+    const count = 3;
+    const result = getBiggestReceivers(testData, count, -1.0);
+    result.labels.should.deepEqual([
+      [ 'The Food Store', 218 ],
+      [ 'K SUPERMARKET KAMPPI', 99 ],
+      [ 'Reiska Testinen', 85 ]
+    ]);
+    result.labels.length.should.equal(count);
+    result.datasets.length.should.equal(1);
+    result.datasets[0].data.should.deepEqual([ 218, 99, 85 ]);
   });
 
   it('get totals by source', () => {

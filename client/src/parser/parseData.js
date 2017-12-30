@@ -13,6 +13,20 @@ const randomColor = () => colors[_.random(0, colors.length -1)];
 const fromSource = (data, source) => data.filter(sourceEquals(source))
 const sourceEquals = source => el => el.saajaMaksaja.toLowerCase() === source.toLowerCase();
 
+const options = {
+  responsive: false,
+  maintainAspectRatio: false,
+  scales: {
+    xAxes: [{
+      ticks: {
+        stepSize: 1,
+        min: 0,
+        autoSkip: false,
+      },
+    }],
+  },
+};
+
 export const getTotalsBySource = (data, factorIn) => {
   const factor = factorIn || 1.0;
   const sources = _.uniqBy(data, 'saajaMaksaja').map(el => el.saajaMaksaja);
@@ -22,39 +36,37 @@ export const getTotalsBySource = (data, factorIn) => {
   });
 };
 
+const descByTotal = (l, r) => r.total - l.total;
+
 export const getBiggestReceivers = (data, count, factor) => {
-  const totals = _.sortBy(getTotalsBySource(data), 'total').slice(0, count);
-  const color = randomColor();
+  const totals = getTotalsBySource(data.filter(negativePayment), factor).sort(descByTotal).slice(0, count);
+
+  const color1 = randomColor();
+  const color2 = randomColor();
   return {
     datasets: [{
-      data: totals.map(el => (el.total * factor)),
-      backgroundColor: color,
-      borderColor: color,
+      data: totals.map(el => el.total),
+      backgroundColor: color1,
+      hoverBackgroundColor: color2,
+      hoverBorderColor: color1,
       borderWidth: 1,
       label: 'total by receiver'
     }],
-    labels: totals.map(el => [el.source.slice(0, 20), el.total * factor]),
-    options: {
-      legend: {
-        display: false
-      },
-      responsive: false,
-      maintainAspectRatio: false,
-    },
+    labels: totals.map(el => [el.source.slice(0, 20), el.total]),
+    options,
   };
 };
 
-const negativeAmount = el => parseFloat(el.määrä) <= 0;
-const descendingByTotal = (l, r) => l.total < r.total;
+const negativePayment = el => parseFloat(el.määrä) <= 0;
 
 export const getBiggestReceiversPie = (data, count, factor) => {
-  const totalsBySource = getTotalsBySource(data.filter(negativeAmount), factor);
+  const totalsBySource = getTotalsBySource(data.filter(negativePayment), factor);
   const grandTotal = _.sumBy(totalsBySource, 'total');
-  const nBiggest = totalsBySource.sort(descendingByTotal).slice(0, count);
+  const nBiggest = totalsBySource.sort(descByTotal).slice(0, count);
   const nBiggestTotal = _.sumBy(nBiggest, 'total');
   const grandTotalMinusNBiggest = (grandTotal - nBiggestTotal);
 
-  const result = {
+  return {
     datasets: [{
       data: nBiggest.map(el => (el.total)).concat(grandTotalMinusNBiggest),
       backgroundColor: colors,
@@ -62,15 +74,8 @@ export const getBiggestReceiversPie = (data, count, factor) => {
     labels: nBiggest
       .map(el => `${el.source.slice(0, 20)} ${el.total}`)
       .concat(`Others ${grandTotalMinusNBiggest}`),
-    options: {
-      legend: {
-        display: false
-      },
-      responsive: false,
-      maintainAspectRatio: false,
-    },
+    options,
   };
-  return result;
 };
 
 export const getMonthlyTotalsChartData = (data, source) => (
@@ -79,19 +84,7 @@ export const getMonthlyTotalsChartData = (data, source) => (
     datasets: [
       totalByMonth(data, source),
     ],
-    options: {
-      responsive: false,
-      maintainAspectRatio: false,
-      scales: {
-        xAxes: [{
-          ticks: {
-            stepSize: 1,
-            min: 0,
-            autoSkip: false,
-          },
-        }],
-      },
-    },
+    options,
   }
 );
 
@@ -107,25 +100,24 @@ const totalByMonth = (data, source) => {
     };
   });
 
-  const color = randomColor();
+  const color1 = randomColor();
+  const color2 = randomColor();
   return {
     label: source,
-    backgroundColor: color,
-    borderColor: color,
+    backgroundColor: color1,
+    borderColor: color1,
     borderWidth: 1,
-    hoverBackgroundColor: '#3498db',
-    hoverBorderColor: 'rgba(255,99,132,1)',
+    hoverBackgroundColor: color2,
+    hoverBorderColor: color1,
     data: monthlyTotals.map(el => el.value),
   };
 };
 
 export const getRecurringPaymentsChartData = (data, minTimes) => {
-
   const DELIMITER = '___';
   const getSourceAndAmount = el => `${el.saajaMaksaja}${DELIMITER}${el.määrä}`;
 
   const countsPerName = _.countBy(data, getSourceAndAmount);
-
   const recurringPayments = data.filter(el => countsPerName[getSourceAndAmount(el)] > minTimes);
   const uniqueSources = _.uniqBy(recurringPayments, 'saajaMaksaja').map(el => el.saajaMaksaja);
 
@@ -133,9 +125,6 @@ export const getRecurringPaymentsChartData = (data, minTimes) => {
   return {
     labels: moment.monthsShort(),
     datasets,
-    options: {
-      responsive: false,
-      maintainAspectRatio: false,
-    },
+    options,
   };
 };
