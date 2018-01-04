@@ -6,11 +6,23 @@ Visualize bank account events over time. Currently, only Nordea account data for
 
 ## Run locally
 
-`npm start`
+### Install
+
+`$ npm install && cd client && npm install & cd ..`
+
+### Run server
+
+`$ npm start`
+
+### Run client
+
+`$ cd client && npm start`
 
 Open http://localhost:5000 in your browser.
 
 ## Run tests
+
+In project root:
 
 `cd client && npm test`
 
