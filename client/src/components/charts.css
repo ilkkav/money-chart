@@ -1,0 +1,22 @@
+.chart-list {
+  margin-top:80px;
+  min-width: 1000px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.chart-container {
+  flex-direction: column;
+  margin-bottom: 120px;
+}
+
+.chart-label {
+  margin: 20px 0px 20px 0px;
+  min-width: 1000px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+  font-size: 20px;
+}

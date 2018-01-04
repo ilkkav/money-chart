@@ -19,31 +19,10 @@ html, body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  width: 80%;
+  width: 90%;
   margin: 20px;
   margin: auto;
   justify-content: space-between;
   align-items: center;
   background-color: white;
-}
-
-.chart-list {
-  width: 800px;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.chart-container {
-  flex-direction: column;
-  margin-bottom: 80px;
-}
-
-.chart-label {
-  width: 800px;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  text-align: center;
-  font-size: 20px;
 }

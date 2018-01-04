@@ -1,12 +1,12 @@
 import React from 'react';
 import moment from 'moment';
+import './charts.css';
 import {
   getMonthlyTotalsChartData,
   getRecurringPaymentsChartData,
   getBiggestReceivers,
   getBiggestReceiversPie,
 } from '../parser/parseData';
-import TimeButtons from './TimeButtons';
 import ChartContainer from './ChartContainer';
 import PieChartContainer from './PieChartContainer';
 
@@ -19,7 +19,6 @@ export default function ChartList(props) {
 
   return (
       <div>
-        <TimeButtons />
         <ChartContainer label='Wage' data={ getMonthlyTotalsChartData(props.data, 'The Wage Company') } />
         <ChartContainer label='Biggest receivers/last month' data={ getBiggestReceivers(filterByMonth(props.data, 'Dec'), 5, -1.0) } />
         <PieChartContainer label='All receivers/last month' data={ getBiggestReceiversPie(filterByMonth(props.data, 'Dec'), 5, -1.0) } />
@@ -28,5 +27,3 @@ export default function ChartList(props) {
       </div>
     );
 }
-
-//
