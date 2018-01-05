@@ -27,6 +27,8 @@ const options = {
   },
 };
 
+export const getLatestEntry = data => _.maxBy(data, el => moment(el.maksupaiva, 'DD.MM.YYYY'));
+
 export const getTotalsBySource = (data, factorIn) => {
   const factor = factorIn || 1.0;
   const sources = _.uniqBy(data, 'saajaMaksaja').map(el => el.saajaMaksaja);
