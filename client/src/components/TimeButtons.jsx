@@ -3,17 +3,17 @@ import './buttons.css';
 
 export const periods = [
   {
-    id: '1',
+    id: 1,
     period: [1, 'months'],
     text: '1 month',
   },
   {
-    id: '2',
+    id: 2,
     period: [6, 'months'],
     text: '6 months',
   },
   {
-    id: '3',
+    id: 3,
     period: [1, 'year'],
     text: '1 year',
   },
