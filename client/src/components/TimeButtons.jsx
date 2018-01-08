@@ -1,13 +1,33 @@
 import React from 'react';
 import './buttons.css';
 
-export default function TimeButtons(props) {
+export const periods = [
+  {
+    id: 1,
+    period: [1, 'months'],
+    text: '1 month',
+  },
+  {
+    id: 2,
+    period: [6, 'months'],
+    text: '6 months',
+  },
+  {
+    id: 3,
+    period: [1, 'year'],
+    text: '1 year',
+  },
+];
+
+const Button = props => (
+  <button className="button-item" onClick={() => props.onClick(props.id)}>{props.label}</button>
+)
+
+export function TimeButtons(props) {
   return (
-    <div class="button-container">
+    <div className="button-container">
       <p>Select time period:</p>
-      <button class="button-item">1 month</button>
-      <button class="button-item">6 months</button>
-      <button class="button-item">1 year</button>
+      {periods.map(el => <Button onClick={props.onClick} key={el.id} id={el.id} label={el.text} />)}
     </div>
   );
 };
