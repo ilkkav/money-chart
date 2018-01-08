@@ -36,13 +36,13 @@ describe('test parsing', () => {
     const count = 3;
     const result = getBiggestReceivers(testData, count, -1.0);
     result.labels.should.deepEqual([
-      [ 'The Food Store', 218 ],
-      [ 'K SUPERMARKET KAMPPI', 99 ],
-      [ 'Reiska Testinen', 85 ]
+      [ 'The Holiday Hotel', 888 ],
+      [ 'The Holiday Airline', 601 ],
+      [ 'K SUPERMARKET KAMPPI', 221 ]
     ]);
     result.labels.length.should.equal(count);
     result.datasets.length.should.equal(1);
-    result.datasets[0].data.should.deepEqual([ 218, 99, 85 ]);
+    result.datasets[0].data.should.deepEqual([ 888, 601, 221 ]);
   });
 
   it('get totals by source', () => {

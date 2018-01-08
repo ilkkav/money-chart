@@ -27,7 +27,7 @@ export function TimeButtons(props) {
   return (
     <div className="button-container">
       <p>Select time period:</p>
-      {periods.map(el => <Button onClick={props.onClick}  key={el.id} id={el.id} label={el.text} />)}
+      {periods.map(el => <Button onClick={props.onClick} key={el.id} id={el.id} label={el.text} />)}
     </div>
   );
 };
