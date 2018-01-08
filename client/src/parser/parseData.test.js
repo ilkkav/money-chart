@@ -6,11 +6,10 @@ import {
   getTotalsBySource,
   getMonthlyTotalsChartData,
   getBiggestReceivers,
-  getLatestEntry,
 } from './parseData';
 const path = require('path');
 
-describe('test stuff', () => {
+describe('test parsing', () => {
 
   let testData;
 
@@ -98,10 +97,5 @@ describe('test stuff', () => {
     data.every(el => !isNaN(el));
   });
 
-  it('get data by source and by month', () => {
-    const result = getLatestEntry(testData);
-    result.saajaMaksaja.should.equal('The Last Day Pub');
-    result.maksupaiva.should.equal('31.12.2016');
-  });
 });
 

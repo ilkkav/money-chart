@@ -7,7 +7,7 @@ import {
   getBiggestReceivers,
   getBiggestReceiversPie,
 } from '../parser/parseData';
-import { TimeButtons } from './TimeButtons';
+import { TimeButtons, periods } from './TimeButtons';
 import ChartContainer from './ChartContainer';
 import PieChartContainer from './PieChartContainer';
 

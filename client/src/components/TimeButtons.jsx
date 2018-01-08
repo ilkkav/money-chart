@@ -1,21 +1,20 @@
 import React from 'react';
 import './buttons.css';
-import moment from 'moment';
 
 export const periods = [
   {
     id: '1',
-    period: moment.duration(1, 'months'),
+    period: [1, 'months'],
     text: '1 month',
   },
   {
     id: '2',
-    period: moment.duration(6, 'months'),
+    period: [6, 'months'],
     text: '6 months',
   },
   {
     id: '3',
-    period: moment.duration(1, 'year'),
+    period: [1, 'year'],
     text: '1 year',
   },
 ];
