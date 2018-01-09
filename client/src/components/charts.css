@@ -11,6 +11,11 @@
   margin-bottom: 120px;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
 .chart-label {
   margin: 20px 0px 20px 0px;
   min-width: 1000px;

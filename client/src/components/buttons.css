@@ -26,6 +26,10 @@
 }
 
 .button-item:focus {
+  outline:0;
+}
+
+.active {
   background-color: #ecf0f1;
   cursor: pointer;
 }

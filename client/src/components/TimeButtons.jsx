@@ -19,15 +19,17 @@ export const periods = [
   },
 ];
 
+const buttonClass = active => `button-item${active? ' active' : ''}`;
+
 const Button = props => (
-  <button className="button-item" onClick={() => props.onClick(props.id)}>{props.label}</button>
+  <button className={buttonClass(props.active)}  onClick={() => props.onClick(props.id)}>{props.label}</button>
 )
 
 export function TimeButtons(props) {
   return (
     <div className="button-container">
       <p>Select time period:</p>
-      {periods.map(el => <Button onClick={props.onClick} key={el.id} id={el.id} label={el.text} />)}
+      {periods.map(el => <Button onClick={props.onClick} active={el.id===props.activeId} key={el.id} id={el.id} label={el.text} />)}
     </div>
   );
 };

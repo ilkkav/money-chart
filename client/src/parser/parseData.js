@@ -1,5 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
+import { negativePayment } from './filterData';
 
 const colors = [
   '#F8B195',
@@ -38,8 +39,8 @@ export const getTotalsBySource = (data, factorIn) => {
 
 const descByTotal = (l, r) => r.total - l.total;
 
-export const getBiggestReceivers = (data, count, factor) => {
-  const totals = getTotalsBySource(data.filter(negativePayment), factor).sort(descByTotal).slice(0, count);
+export const getNBiggest = (data, count, factor) => {
+  const totals = getTotalsBySource(data, factor).sort(descByTotal).slice(0, count);
 
   const color1 = randomColor();
   const color2 = randomColor();
@@ -56,8 +57,6 @@ export const getBiggestReceivers = (data, count, factor) => {
     options,
   };
 };
-
-const negativePayment = el => parseFloat(el.määrä) <= 0;
 
 export const getBiggestReceiversPie = (data, count, factor) => {
   const totalsBySource = getTotalsBySource(data.filter(negativePayment), factor);

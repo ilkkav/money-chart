@@ -3,10 +3,10 @@ import './charts.css';
 import {
   getMonthlyTotalsChartData,
   getRecurringPaymentsChartData,
-  getBiggestReceivers,
+  getNBiggest,
   getBiggestReceiversPie,
 } from '../parser/parseData';
-import { withinLatest } from '../parser/filterData';
+import { withinLatest, positivePayment, negativePayment } from '../parser/filterData';
 import { TimeButtons, periods } from './TimeButtons';
 import ChartContainer from './ChartContainer';
 import PieChartContainer from './PieChartContainer';
@@ -37,8 +37,10 @@ export default class ChartList extends React.Component {
     console.log(data);
     return (
         <div>
-          <TimeButtons onClick={this.setActiveButton} />
-          <ChartContainer label='Biggest receivers' data={ getBiggestReceivers(data, 5, -1.0) } />
+          <TimeButtons onClick={this.setActiveButton} activeId={this.state.activeButton} />
+          <hr />
+          <ChartContainer label='Biggest receivers' data={ getNBiggest(data.filter(negativePayment), 5, -1.0) } />
+          <ChartContainer label='Biggest sources' data={ getNBiggest(data.filter(positivePayment), 5, 1.0) } />
           <PieChartContainer label='All receivers' data={ getBiggestReceiversPie(data, 5, -1.0) } />
           <ChartContainer label='Wage' data={ getMonthlyTotalsChartData(data, 'The Wage Company') } />
           <ChartContainer label='Recurring payments' data={ getRecurringPaymentsChartData(data, 2) } />
