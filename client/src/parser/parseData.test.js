@@ -1,6 +1,6 @@
 import 'should';
 import moment from 'moment';
-import { parseFile } from '../../../parseCsv';
+import { parseFile } from '../../../parseFile';
 import {
   getRecurringPaymentsChartData,
   getTotalsBySource,
@@ -73,9 +73,8 @@ describe('test parsing', () => {
         määrä: '111.0',
       },
     ];
-    const result = getTotalsBySource(data);
-    result.length.should.equal(3);
-    result.should.deepEqual([
+    
+    getTotalsBySource(data).should.deepEqual([
       { source: 'pentti', total: 357.5 },
       { source: 'sirkka', total: 641 },
       { source: 'jamppa', total: 100 }

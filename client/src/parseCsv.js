@@ -19,9 +19,11 @@ const parseRow = (row, columnNames) => {
   return rawData;
 };
 
-export default function ParseCsv(content) {
+const parseCsv = content => {
   //drop the header line that only contains account number
   const rows = content.split('\n').filter(el => el.length > 0).slice(1);
   const result = parseRows(rows);
   return result;
 };
+
+module.exports = { parseCsv };

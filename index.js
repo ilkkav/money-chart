@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const ParseCsv = require('./client/src/ParseCsv');
+const { parseLocalCsv } = require('./parseLocalCsv');
 
 const PORT = process.env.PORT || 5000;
-
-const parseFile = filePath => readFile(filePath, 'utf8').then(content => ParseCsv(content));
 
 const exampleDataController = (req, res) => {
   res.set('Content-Type', 'application/json');
 
-  parseFile(path.join(__dirname, 'data/exampleData.csv'))
+  parseLocalCsv(path.join(__dirname, 'data/exampleData.csv'))
   .then(result => {
     res.send(result);
   });
