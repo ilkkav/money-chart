@@ -1,32 +1,36 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const parseFile = require('./parseCsv').parseFile;
-
-const app = express();
+const { parseLocalCsv } = require('./parseLocalCsv');
 
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static(path.resolve(__dirname, 'client/build')));
-
-app.get('/api', function (req, res) {
+const exampleDataController = (req, res) => {
   res.set('Content-Type', 'application/json');
 
-  let filePath = path.join(__dirname, 'data/exampleData.csv');
-  if(fs.existsSync(`${__dirname}/data/local`)) {
-    filePath = path.join(`${__dirname}/data/local`, 'Tapahtumat_2016.csv');
-  }
-
-  parseFile(filePath)
+  parseLocalCsv(path.join(__dirname, 'data/exampleData.csv'))
   .then(result => {
     res.send(result);
   });
-});
+};
 
-app.get('*', function(request, response) {
-  response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
-});
+const initApp = () => {
+  const app = express();
+  
+  app.use(express.static(path.resolve(__dirname, 'client/build')));
 
-app.listen(PORT, function () {
-  console.log(`Listening on port ${PORT}`);
-});
+  app.get('/api', exampleDataController);
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+  });
+
+  return app;
+};
+
+if (!module.parent) {
+  const app = initApp();
+
+  app.listen(PORT, function () {
+    console.log(`Listening on port ${PORT}`);
+  });
+}

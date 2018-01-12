@@ -8,6 +8,7 @@ import {
 } from '../parser/parseData';
 import { withinLatest, positivePayment, negativePayment } from '../parser/filterData';
 import { TimeButtons, periods } from './TimeButtons';
+import FileButton from './FileButton';
 import ChartContainer from './ChartContainer';
 import PieChartContainer from './PieChartContainer';
 
@@ -37,6 +38,7 @@ export default class ChartList extends React.Component {
     console.log(data);
     return (
         <div>
+          <FileButton onChange={this.props.onChange}/>
           <TimeButtons onClick={this.setActiveButton} activeId={this.state.activeButton} />
           <hr />
           <ChartContainer label='Biggest receivers' data={ getNBiggest(data.filter(negativePayment), 5, -1.0) } />
