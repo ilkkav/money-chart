@@ -1,8 +1,3 @@
-const path = require('path')
-const fs = require('fs');
-const Promise = require('bluebird');
-
-var readFile = Promise.promisify(require('fs').readFile);
 const getColumnNames = (headerRow, delimiter) => headerRow.split(delimiter);
 
 const parseRows = (rawData) => {
@@ -24,13 +19,9 @@ const parseRow = (row, columnNames) => {
   return rawData;
 };
 
-const parseFile = (filePath) =>
-  readFile(filePath, 'utf8')
-  .then(content => {
-    //drop the header line that only contains account number
-    const rows = content.split('\n').filter(el => el.length > 0).slice(1);
-    const result = parseRows(rows);
-    return result;
-  });
-
-module.exports = { parseFile };
+export default function ParseCsv(content) {
+  //drop the header line that only contains account number
+  const rows = content.split('\n').filter(el => el.length > 0).slice(1);
+  const result = parseRows(rows);
+  return result;
+};

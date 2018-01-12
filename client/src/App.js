@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import ParseCsv from './parseCsv';
 import ChartList from './components/ChartList';
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
     reader.onload = e => {
       const data = e.target.result;
       console.log(data); 
-      this.setState({ data: JSON.parse(JSON.stringify(data)) });
+      this.setState({ data: ParseCsv(JSON.parse(JSON.stringify(data))) });
     };
   }
 
