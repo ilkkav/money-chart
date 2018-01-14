@@ -20,6 +20,13 @@ Visualize bank account events over time. Currently, only Nordea account data for
 
 Open http://localhost:3000 in your browser.
 
+App runs with an example data set. To import your own Nordea account data,
+
+* download your account events from Nordea and save them in a local file
+* click "Choose file" and select your local file
+
+money-chart never saves or sends your account data to a third party. 
+
 ## Run tests
 
 In project root:
@@ -28,4 +35,4 @@ In project root:
 
 ## Live example
 
-https://agile-refuge-20449.herokuapp.com
+https://murmuring-dusk-94556.herokuapp.com/
