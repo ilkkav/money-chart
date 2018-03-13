@@ -35,9 +35,9 @@ class App extends Component {
     return (
       <div className="main-container">
         <div className="header">
-        <h1>MoneyChart</h1>
-        <p>See where your money goes and comes from.</p>
-      </div>
+          <h1>MoneyChart</h1>
+          <p>See where your money goes and comes from.</p>
+        </div>
         <div className="flex-container">
           <div className="chart-list">
             <ChartList data={this.state.data} onChange={this.readFile}/>
