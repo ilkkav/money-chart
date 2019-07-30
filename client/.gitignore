@@ -6,6 +6,9 @@
 # testing
 /coverage
 
+# ts compile output
+/built
+
 # production
 /build
 
