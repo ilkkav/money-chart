@@ -10,12 +10,13 @@
 .button-item {
   text-align: center;
   justify-content: center;
-  border: 2px solid #E26A6A;
+  border: 1px solid black;
   margin: 20px;
   min-width: 80px;
   min-height: 40px;
   max-height: 60px;
-  background: none;
+  background: #E26A6A;
+  color: white;
   border-radius: 5px;
 }
 
@@ -31,6 +32,7 @@
 .active {
   background-color: #ecf0f1;
   cursor: pointer;
+  color: black;
 }
 
 .file-item {
