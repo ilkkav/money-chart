@@ -13,8 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "create-react-app": "^1.4.3",
-    "express": "^4.16.2",
-    "npm-check-updates": "^3.1.20"
+    "express": "^4.16.2"
   }
 }
