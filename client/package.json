@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/types": "^7.5.5",
-    "@types/jest": "^24.0.16",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
@@ -22,7 +21,9 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "react-scripts": "^3.0.1"
+    "@types/jest": "^24.0.16",
+    "react-scripts": "^3.0.1",
+    "ts-jest": "^24.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
