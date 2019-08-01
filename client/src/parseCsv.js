@@ -1,29 +1,30 @@
-import { AccountEvent } from "./AccountEventModel";
 
-const getColumnNames = (headerRow: string, delimiter: string) => headerRow.split(delimiter);
+const getColumnNames = (headerRow, delimiter) => headerRow.split(delimiter);
 
-const parseRows = (rawData: string[]) => {
+const parseRows = (rawData) => {
   const columnNames = getColumnNames(rawData[0], '\t');
   return rawData.slice(1).map(row => parseRow(row, columnNames));
 };
 
-const toJsonName = (name: string): string => {
+const toJsonName = (name) => {
   const trimmed = name.replace(' ', '').replace('päivä', 'paiva').replace('määrä', 'maara').replace('ö', 'o').replace('/', '');
   return trimmed.charAt(0).toLowerCase() + trimmed.slice(1);
 };
 
-const parseRow = (row: string, columnNames: string[]) => {
-  const rawData: any = {};
+const parseRow = (row, columnNames) => {
+  const rawData = {};
   const rowValues = row.split('\t');
   columnNames.forEach((name, index) => {
     rawData[toJsonName(name)] = rowValues[index];
   });
-  return rawData as AccountEvent;
+  return rawData;
 };
 
-export const parseCsv = (content: string) => {
+const parseCsv = (content) => {
   //drop the header line that only contains account number
   const rows = content.split('\n').filter(el => el.length > 0).slice(1);
   const result = parseRows(rows);
   return result;
 };
+
+module.exports = {parseCsv};
