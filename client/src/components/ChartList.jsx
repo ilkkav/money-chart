@@ -13,7 +13,6 @@ import ChartContainer from './ChartContainer';
 import PieChartContainer from './PieChartContainer';
 
 const getPeriodData = (data, periodId) => {
-  console.log(periods.find(el => el.id === periodId));
   return withinLatest(data, periods.find(el => el.id === periodId).period);
 }
 
@@ -35,7 +34,6 @@ export default class ChartList extends React.Component {
     }
 
     const data = getPeriodData(this.props.data, this.state.activeButton);
-    console.log(data);
     return (
         <div>
           <FileButton onChange={this.props.onChange}/>
