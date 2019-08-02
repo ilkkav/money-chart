@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function FileButton(props) {
+interface ClickProps {
+  onChange: (event: any) => void
+}
+
+export default function FileButton(props: ClickProps) {
   return (
     <div className="button-container">
       <label className="file-item" htmlFor="file">Select file to import</label>

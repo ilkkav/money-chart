@@ -16,7 +16,7 @@ class App extends Component<{}, {data: AccountEvent[] | undefined} > {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsText(file);
-    reader.onload = e => {
+    reader.onload = _ => {
       const data = reader.result;
       this.setState({ data: parseCsv(JSON.parse(JSON.stringify(data))) });
     };
