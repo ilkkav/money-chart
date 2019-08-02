@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import { parseCsv } from './parseCsv';
 import ChartList from './components/ChartList';
+import { AccountEvent } from './AccountEventModel';
 
-class App extends Component<{}, {data: any} > {
+class App extends Component<{}, {data: AccountEvent[] | undefined} > {
   constructor(props: any) {
-    console.log("konstruktori")
     super(props);
     this.state = { data: undefined };
 
@@ -18,7 +18,6 @@ class App extends Component<{}, {data: any} > {
     reader.readAsText(file);
     reader.onload = e => {
       const data = reader.result;
-      console.log(data);
       this.setState({ data: parseCsv(JSON.parse(JSON.stringify(data))) });
     };
   }
@@ -32,7 +31,6 @@ class App extends Component<{}, {data: any} > {
   }
 
   render() {
-    console.log(this.state)
     return (
       <div className="main-container">
         <div className="header">
