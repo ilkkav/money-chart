@@ -40,7 +40,6 @@ const Button = (props: ButtonProps) => (
 
 type Props = {
   activeId: number
-  id: number
   onClick: (id: number) => void
 }
 

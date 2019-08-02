@@ -9,7 +9,7 @@ import {
 import { withinLatest, positivePayment, negativePayment } from '../parser/filterData';
 import { TimeButtons, periods } from './TimeButtons';
 import FileButton from './FileButton';
-import ChartContainer from './ChartContainer';
+import ChartContainer from './BarChartContainer';
 import PieChartContainer from './PieChartContainer';
 import { AccountEvent } from '../AccountEventModel';
 

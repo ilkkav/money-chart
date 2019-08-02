@@ -1,8 +1,12 @@
 import React from 'react';
-const rc = require('react-chartjs-2');
-const Bar = rc.Bar;
+import { ChartData, Bar } from 'react-chartjs-2';
 
-export default function ChartContainer(props) {
+type Props = {
+  label: string
+  data: ChartData<{}>
+}
+
+export default function BarChartContainer(props: Props) {
   return (
       <div className="chart-container">
         <div className="chart-label">

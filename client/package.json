@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/types": "^7.5.5",
+    "@types/chart.js": "^2.7.56",
     "@types/lodash": "^4.14.136",
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.23",
