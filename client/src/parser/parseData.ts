@@ -1,7 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
 import { AccountEvent } from '../AccountEventModel'
-import { negativePayment } from './filterData';
 
 const colors = [
   '#F8B195',
@@ -29,14 +28,17 @@ const options = {
   },
 };
 
-export const getTotalsBySource = (data: AccountEvent[], factorIn: number) => {
-  const factor = factorIn || 1.0;
-  const sources = _.uniqBy(data, 'saajaMaksaja').map(el => el.saajaMaksaja);
-  return sources.map(source => {
-    // @ts-ignore
-    const total = _.sumBy(fromSource(data, source), el => (parseFloat(el.määrä) * factor));
-    return { source, total };
-  });
+type SourceTotal = {
+  source: string
+  total: number
+}
+
+const MultiplyAndAcc = (events: AccountEvent[], factor: number): number =>
+  events.map(e => parseFloat(e.määrä)).reduce((acc, current) => acc + current * factor, 0)
+
+export const getTotalsBySource = (data: AccountEvent[], factor: number): SourceTotal[] => {
+  const bySource = _.toPairs(_.groupBy(data, 'saajaMaksaja'))
+  return bySource.map(e => ({source: e[0], total: MultiplyAndAcc(e[1], factor)}))
 };
 
 const descByTotal = (l: any, r: any) => r.total - l.total;
@@ -56,25 +58,6 @@ export const getNBiggest = (data: AccountEvent[], count: number, factor: number)
       label: 'total by receiver'
     }],
     labels: totals.map(el => [el.source.slice(0, 20), el.total]),
-    options,
-  };
-};
-
-export const getBiggestReceiversPie = (data: AccountEvent[], count: number, factor: number) => {
-  const totalsBySource = getTotalsBySource(data.filter(negativePayment), factor);
-  const grandTotal = _.sumBy(totalsBySource, 'total');
-  const nBiggest = totalsBySource.sort(descByTotal).slice(0, count);
-  const nBiggestTotal = _.sumBy(nBiggest, 'total');
-  const grandTotalMinusNBiggest = (grandTotal - nBiggestTotal);
-
-  return {
-    datasets: [{
-      data: nBiggest.map(el => (el.total)).concat(grandTotalMinusNBiggest),
-      backgroundColor: colors,
-    }],
-    labels: nBiggest
-      .map(el => `${el.source.slice(0, 20)} ${el.total}`)
-      .concat(`Others ${grandTotalMinusNBiggest}`),
     options,
   };
 };
