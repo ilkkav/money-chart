@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 import './App.css';
 import { parseCsv } from './parseCsv';
 import ChartList from './components/ChartList';
+import { AccountEvent } from './AccountEventModel';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {};
+class App extends Component<{}, {data: AccountEvent[] | undefined} > {
+  constructor(props: any) {
+    super(props);
+    this.state = { data: undefined };
 
     this.readFile = this.readFile.bind(this);
   }
 
-  readFile(event) {
-    console.log('handleChange');
+  readFile(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsText(file);
-    reader.onload = e => {
-      const data = e.target.result;
-      console.log(data); 
+    reader.onload = _ => {
+      const data = reader.result;
       this.setState({ data: parseCsv(JSON.parse(JSON.stringify(data))) });
     };
   }
@@ -26,8 +25,8 @@ class App extends Component {
   componentDidMount() {
     fetch('/api')
       .then(res => res.json())
-      .then(data => {
-        this.setState({ data: JSON.parse(JSON.stringify(data)) });
+      .then(dataIn => {
+        this.setState({ data: JSON.parse(JSON.stringify(dataIn)) });
       });
   }
 
@@ -40,7 +39,10 @@ class App extends Component {
         </div>
         <div className="flex-container">
           <div className="chart-list">
-            <ChartList data={this.state.data} onChange={this.readFile}/>
+          {this.state.data ?
+            <ChartList data={this.state.data} onChange={this.readFile}/>:
+            <div/>
+          }
           </div>
         </div>
       </div>

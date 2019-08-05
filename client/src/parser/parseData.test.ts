@@ -1,23 +1,23 @@
 import 'should';
 import moment from 'moment';
-import { parseFile } from '../../../parseFile';
+import { parseLocalCsv } from '../../../parseLocalCsv';
 import {
   getRecurringPaymentsChartData,
   getTotalsBySource,
   getMonthlyTotalsChartData,
-  getBiggestReceivers,
+  getNBiggest
 } from './parseData';
 const path = require('path');
 
 describe('test parsing', () => {
 
-  let testData;
+  let testData: any;
 
   beforeAll(() => {
     let filePath = path.join(__dirname, '../../../data/exampleData.csv');
 
-    return parseFile(filePath)
-    .then((result) => {
+    return parseLocalCsv(filePath)
+    .then((result: any) => {
       testData = result;
     });
   });
@@ -34,7 +34,7 @@ describe('test parsing', () => {
 
   it('get biggest receivers', () => {
     const count = 3;
-    const result = getBiggestReceivers(testData, count, -1.0);
+    const result = getNBiggest(testData, count, -1.0);
     result.labels.should.deepEqual([
       [ 'The Holiday Hotel', 888 ],
       [ 'The Holiday Airline', 601 ],
@@ -51,30 +51,35 @@ describe('test parsing', () => {
         saajaMaksaja: 'pentti',
         time: 'eilen',
         määrä: '357.5',
+        maksupaiva: 'foo',
       },
       {
         saajaMaksaja: 'sirkka',
         time: 'tänään',
         määrä: '30',
+        maksupaiva: 'foo',
       },
       {
         saajaMaksaja: 'sirkka',
         time: 'eilen',
         määrä: '500.0',
+        maksupaiva: 'foo',
       },
       {
         saajaMaksaja: 'jamppa',
         time: 'eilen',
         määrä: '100.0',
+        maksupaiva: 'foo',
       },
       {
         saajaMaksaja: 'sirkka',
         time: 'eilen',
         määrä: '111.0',
+        maksupaiva: 'foo',
       },
     ];
-    
-    getTotalsBySource(data).should.deepEqual([
+
+    getTotalsBySource(data, 1.0).should.deepEqual([
       { source: 'pentti', total: 357.5 },
       { source: 'sirkka', total: 641 },
       { source: 'jamppa', total: 100 }
