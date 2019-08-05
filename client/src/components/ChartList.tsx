@@ -9,7 +9,6 @@ import { withinLatest, positivePayment, negativePayment } from '../parser/filter
 import { TimeButtons, periods } from './TimeButtons';
 import FileButton from './FileButton';
 import ChartContainer from './BarChartContainer';
-import PieChartContainer from './PieChartContainer';
 import { AccountEvent } from '../AccountEventModel';
 
 const getPeriodData = (data: AccountEvent[], periodId: number) => {
