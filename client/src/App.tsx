@@ -38,12 +38,10 @@ class App extends Component<{}, {data: AccountEvent[] | undefined} > {
           <p>See where your money goes and comes from.</p>
         </div>
         <div className="flex-container">
-          <div className="chart-list">
           {this.state.data ?
             <ChartList data={this.state.data} onChange={this.readFile}/>:
             <div/>
           }
-          </div>
         </div>
       </div>
     );
