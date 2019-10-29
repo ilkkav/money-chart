@@ -74,13 +74,13 @@ export const getMonthlyTotalsChartData = (data: AccountEvent[], source: string) 
 
 const monthEquals = (month: string, el: AccountEvent) => moment(el.maksupaiva, 'DD.MM.YYYY').format('MMM') === month;
 
-const totalByMonth = (data: AccountEvent[], source: string) => {
+const totalByMonth = (data: AccountEvent[], source: string, factor: number = 1.0) => {
   const months = moment.monthsShort();
   const monthlyTotals = months.map(month => {
     const monthData = fromSource(data, source).filter((el: AccountEvent) => monthEquals(month, el));
     return {
       month,
-      value: _.sumBy(monthData, (el: AccountEvent) => parseFloat(el.määrä)),
+      value: _.sumBy(monthData, (el: AccountEvent) => (parseFloat(el.määrä) * factor)),
     };
   });
 
@@ -105,7 +105,7 @@ export const getRecurringPaymentsChartData = (data: AccountEvent[], minTimes: nu
   const recurringPayments = data.filter(el => countsPerName[getSourceAndAmount(el)] > minTimes);
   const uniqueSources = _.uniqBy(recurringPayments, 'saajaMaksaja').map(el => el.saajaMaksaja);
 
-  const datasets = uniqueSources.map(source => totalByMonth(recurringPayments, source));
+  const datasets = uniqueSources.map(source => totalByMonth(recurringPayments, source, -1.0));
   return {
     labels: moment.monthsShort(),
     datasets,

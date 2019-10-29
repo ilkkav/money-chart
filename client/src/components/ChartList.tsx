@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './charts.css';
 import {
   getMonthlyTotalsChartData,
@@ -18,34 +18,24 @@ const getPeriodData = (data: AccountEvent[], periodId: number) => {
 type Props = { data: AccountEvent[], onChange: any }
 type State = { activeButton: number }
 
-export default class ChartList extends React.Component<Props, State> {
+export default function ChartList(props: Props): JSX.Element {
 
-  constructor(props: Props) {
-    super(props);
-    this.state = { activeButton: 1 };
-    this.setActiveButton = this.setActiveButton.bind(this);
+  const [activeButton, setActiveButton] = useState<number>(1)
+
+  if (!props.data) {
+    return <div>Loading..</div>;
   }
 
-  setActiveButton(id: number) {
-    this.setState({ activeButton: id });
-  }
-
-  render() {
-    if (!this.props.data) {
-      return <div>Loading..</div>;
-    }
-
-    const data = getPeriodData(this.props.data, this.state.activeButton);
-    return (
-        <div>
-          <FileButton onChange={this.props.onChange}/>
-          <TimeButtons onClick={this.setActiveButton} activeId={this.state.activeButton} />
-          <hr />
-          <ChartContainer label='Biggest receivers' data={ getNBiggest(data.filter(negativePayment), 6, -1.0) } />
-          <ChartContainer label='Biggest sources' data={ getNBiggest(data.filter(positivePayment), 5, 1.0) } />
-          <ChartContainer label='Wage' data={ getMonthlyTotalsChartData(data, 'The Wage Company') } />
-          <ChartContainer label='Recurring payments' data={ getRecurringPaymentsChartData(data, 2) } />
-        </div>
-      );
-  };
+  const data = getPeriodData(props.data, activeButton);
+  return (
+    <div>
+      <FileButton onChange={props.onChange} />
+      <TimeButtons onClick={setActiveButton} activeId={activeButton} />
+      <hr />
+      <ChartContainer label='Biggest receivers' data={getNBiggest(data.filter(negativePayment), 6, -1.0)} />
+      <ChartContainer label='Biggest sources' data={getNBiggest(data.filter(positivePayment), 5, 1.0)} />
+      <ChartContainer label='Wage' data={getMonthlyTotalsChartData(data, 'The Wage Company')} />
+      <ChartContainer label='Recurring payments' data={getRecurringPaymentsChartData(data, 2)} />
+    </div>
+  );
 };
