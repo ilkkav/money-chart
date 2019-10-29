@@ -1,0 +1,30 @@
+.summary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color:#E26A6A;
+  width: 90%;
+}
+
+.summary-row {
+  width: 100%;
+  border: 2px solid #E26A6A;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.summary-item {
+  font-size: 200%;
+  min-width: 80px;
+}
+
+.left {
+  flex: 1 1;
+}
+
+
+.right {
+  flex: 5 5;
+}

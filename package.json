@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react": "^16.9.2",
     "bluebird": "^3.5.1",
     "express": "^4.16.2",
     "typescript": "^3.5.3"

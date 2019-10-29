@@ -12,7 +12,6 @@ export const negativePayment = (el: AccountEvent) => parseFloat(el.määrä) <= 
 const RIGHT_INCLUSIVE = '(]';
 
 export const withinLatest = (data: AccountEvent[], period: moment.Duration): AccountEvent[] => {
-  console.log("nonii whaaaaa");
   const latestEntry = getLatestEntry(data)
   if (!latestEntry) {
     return []
